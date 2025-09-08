@@ -252,6 +252,14 @@ async function getDatabaseInstructions(
 	}
 
 	if (serverDeploy === "wrangler" && dbSetup === "d1") {
+		if (orm === "prisma" && _runtime === "workers") {
+			instructions.push(
+				`${pc.yellow(
+					"WARNING:",
+				)} Prisma + D1 on Workers with Wrangler has migration issues.
+	   Consider using Alchemy deploy instead of Wrangler for D1 projects.`,
+			);
+		}
 		const packageManager = runCmd === "npm run" ? "npm" : runCmd || "npm";
 
 		instructions.push(
