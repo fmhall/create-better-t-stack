@@ -50,7 +50,7 @@ export async function getDBSetupChoice(
 			{
 				value: "planetscale" as const,
 				label: "PlanetScale",
-				hint: "Serverless MySQL platform with branching (Postgres compatible)",
+				hint: "Postgres & Vitess (MySQL) on NVMe",
 			},
 			{
 				value: "supabase" as const,
@@ -74,7 +74,7 @@ export async function getDBSetupChoice(
 			{
 				value: "planetscale" as const,
 				label: "PlanetScale",
-				hint: "Serverless MySQL platform with branching",
+				hint: "MySQL on Vitess (NVMe, HA)",
 			},
 			{
 				value: "docker" as const,
