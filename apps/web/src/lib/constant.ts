@@ -329,6 +329,13 @@ export const TECH_OPTIONS: Record<
 			color: "from-emerald-400 to-emerald-600",
 		},
 		{
+			id: "planetscale",
+			name: "PlanetScale",
+			description: "Serverless MySQL platform with branching",
+			icon: `${ICON_BASE_URL}/planetscale.svg`,
+			color: "from-orange-400 to-orange-600",
+		},
+		{
 			id: "docker",
 			name: "Docker",
 			description: "Local database with Docker Compose",
@@ -604,6 +611,7 @@ export const PRESET_TEMPLATES = [
 			api: "trpc",
 			webDeploy: "none",
 			serverDeploy: "none",
+			yolo: "false",
 		},
 	},
 	{
@@ -628,6 +636,7 @@ export const PRESET_TEMPLATES = [
 			api: "none",
 			webDeploy: "none",
 			serverDeploy: "none",
+			yolo: "false",
 		},
 	},
 	{
@@ -652,6 +661,7 @@ export const PRESET_TEMPLATES = [
 			api: "trpc",
 			webDeploy: "none",
 			serverDeploy: "none",
+			yolo: "false",
 		},
 	},
 	{
@@ -676,6 +686,7 @@ export const PRESET_TEMPLATES = [
 			api: "trpc",
 			webDeploy: "none",
 			serverDeploy: "none",
+			yolo: "false",
 		},
 	},
 	{
@@ -700,6 +711,7 @@ export const PRESET_TEMPLATES = [
 			api: "trpc",
 			webDeploy: "alchemy",
 			serverDeploy: "alchemy",
+			yolo: "false",
 		},
 	},
 ];
@@ -722,6 +734,7 @@ export type StackState = {
 	api: string;
 	webDeploy: string;
 	serverDeploy: string;
+	yolo: string;
 };
 
 export const DEFAULT_STACK: StackState = {
@@ -742,6 +755,7 @@ export const DEFAULT_STACK: StackState = {
 	api: "trpc",
 	webDeploy: "none",
 	serverDeploy: "none",
+	yolo: "false",
 };
 
 export const isStackDefault = <K extends keyof StackState>(
