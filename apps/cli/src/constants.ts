@@ -92,7 +92,7 @@ export const dependencyVersionMap = {
 
 	"@elysiajs/cors": "^1.3.3",
 	"@elysiajs/trpc": "^1.1.0",
-	elysia: "^1.3.20",
+	"elysia": "^1.3.21",
 
 	"@hono/node-server": "^1.14.4",
 	"@hono/trpc-server": "^0.4.0",
@@ -108,12 +108,12 @@ export const dependencyVersionMap = {
 
 	turbo: "^2.5.4",
 
-	ai: "^5.0.9",
-	"@ai-sdk/google": "^2.0.3",
-	"@ai-sdk/vue": "^2.0.9",
-	"@ai-sdk/svelte": "^3.0.9",
-	"@ai-sdk/react": "^2.0.9",
-	streamdown: "^1.1.6",
+	"ai": "^5.0.39",
+	"@ai-sdk/google": "^2.0.13",
+	"@ai-sdk/vue": "^2.0.39",
+	"@ai-sdk/svelte": "^3.0.39",
+	"@ai-sdk/react": "^2.0.39",
+	streamdown: "^1.2.0",
 
 	"@orpc/server": "^1.8.6",
 	"@orpc/client": "^1.8.6",

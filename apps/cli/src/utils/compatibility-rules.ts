@@ -157,11 +157,10 @@ export function isExampleTodoAllowed(
 }
 
 export function isExampleAIAllowed(
-	backend?: ProjectConfig["backend"],
+	_backend?: ProjectConfig["backend"],
 	frontends: Frontend[] = [],
 ) {
 	const includesSolid = frontends.includes("solid");
-	if (backend === "elysia") return false;
 	if (includesSolid) return false;
 	return true;
 }
@@ -224,11 +223,6 @@ export function validateExamplesCompatibility(
 	) {
 		exitWithError(
 			"The 'todo' example requires a database if a backend (other than Convex) is present. Cannot use --examples todo when database is 'none' and a backend is selected.",
-		);
-	}
-	if (examplesArr.includes("ai") && backend === "elysia") {
-		exitWithError(
-			"The 'ai' example is not compatible with the Elysia backend.",
 		);
 	}
 	if (examplesArr.includes("ai") && (frontend ?? []).includes("solid")) {

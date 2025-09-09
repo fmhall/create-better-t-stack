@@ -33,10 +33,6 @@ export async function getExamplesChoice(
 
 	if (database === "none") return [];
 
-	const noFrontendSelected = !frontends || frontends.length === 0;
-
-	if (noFrontendSelected) return [];
-
 	let response: Examples[] | symbol = [];
 	const options: { value: Examples; label: string; hint: string }[] = [];
 

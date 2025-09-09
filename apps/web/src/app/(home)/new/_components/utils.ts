@@ -912,13 +912,6 @@ export const analyzeStackCompatibility = (
 						"Todo example removed (requires a database but 'None' was selected)",
 				});
 			}
-			if (nextStack.backend === "elysia" && nextStack.examples.includes("ai")) {
-				incompatibleExamples.push("ai");
-				changes.push({
-					category: "examples",
-					message: "AI example removed (not compatible with Elysia backend)",
-				});
-			}
 			if (isSolid && nextStack.examples.includes("ai")) {
 				incompatibleExamples.push("ai");
 				changes.push({
@@ -940,19 +933,6 @@ export const analyzeStackCompatibility = (
 						"Todo example requires a database. It will be removed.",
 					);
 					notes.database.hasIssue = true;
-					notes.examples.hasIssue = true;
-				}
-				if (
-					nextStack.backend === "elysia" &&
-					uniqueIncompatibleExamples.includes("ai")
-				) {
-					notes.backend.notes.push(
-						"AI example is not compatible with Elysia. It will be removed.",
-					);
-					notes.examples.notes.push(
-						"AI example is not compatible with Elysia. It will be removed.",
-					);
-					notes.backend.hasIssue = true;
 					notes.examples.hasIssue = true;
 				}
 				if (isSolid && uniqueIncompatibleExamples.includes("ai")) {
@@ -1551,9 +1531,6 @@ export const getDisabledReason = (
 	}
 
 	if (category === "examples" && optionId === "ai") {
-		if (finalStack.backend === "elysia") {
-			return "AI example is not compatible with Elysia backend. Try Hono, Express, or Fastify.";
-		}
 		if (finalStack.webFrontend.includes("solid")) {
 			return "AI example is not compatible with Solid frontend. Try React-based frontends.";
 		}

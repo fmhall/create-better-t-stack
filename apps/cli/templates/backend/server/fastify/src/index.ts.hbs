@@ -158,15 +158,14 @@ interface AiRequestBody {
   messages: UIMessage[];
 }
 
-fastify.post('/ai', async function (request, reply) {
-  // there are some issues with the ai sdk and fastify, docs: https://ai-sdk.dev/cookbook/api-servers/fastify
+fastify.post('/ai', async function (request) {
   const { messages } = request.body as AiRequestBody;
   const result = streamText({
     model: google('gemini-1.5-flash'),
     messages: convertToModelMessages(messages),
   });
 
-  return result.pipeUIMessageStreamToResponse(reply.raw);
+  return result.toUIMessageStreamResponse();
 });
 {{/if}}
 
