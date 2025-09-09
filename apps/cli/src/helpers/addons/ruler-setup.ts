@@ -8,74 +8,54 @@ import {
 import { execa } from "execa";
 import fs from "fs-extra";
 import pc from "picocolors";
-import { PKG_ROOT } from "../../constants";
 import type { ProjectConfig } from "../../types";
 import { exitCancelled } from "../../utils/errors";
 import { getPackageExecutionCommand } from "../../utils/package-runner";
-import { processAndCopyFiles } from "../core/template-manager";
 
-export async function setupVibeRules(config: ProjectConfig) {
+export async function setupRuler(config: ProjectConfig) {
 	const { packageManager, projectDir } = config;
 
 	try {
 		log.info("Setting up Ruler...");
 
 		const rulerDir = path.join(projectDir, ".ruler");
-		const rulerTemplateDir = path.join(
-			PKG_ROOT,
-			"templates",
-			"addons",
-			"ruler",
-			".ruler",
-		);
 
 		if (!(await fs.pathExists(rulerDir))) {
-			if (await fs.pathExists(rulerTemplateDir)) {
-				await processAndCopyFiles("**/*", rulerTemplateDir, rulerDir, config);
-			} else {
-				log.error(pc.red("Ruler template directory not found"));
-				return;
-			}
+			log.error(
+				pc.red(
+					"Ruler template directory not found. Please ensure ruler addon is properly installed.",
+				),
+			);
+			return;
 		}
 
 		const EDITORS = {
-			cursor: {
-				label: "Cursor",
-			},
-			windsurf: {
-				label: "Windsurf",
-			},
+			amp: { label: "AMP" },
+			copilot: { label: "GitHub Copilot" },
 			claude: { label: "Claude Code" },
-			copilot: {
-				label: "GitHub Copilot",
-			},
-			"gemini-cli": { label: "Gemini CLI" },
 			codex: { label: "OpenAI Codex CLI" },
-			jules: { label: "Jules" },
+			cursor: { label: "Cursor" },
+			windsurf: { label: "Windsurf" },
 			cline: { label: "Cline" },
 			aider: { label: "Aider" },
 			firebase: { label: "Firebase Studio" },
-			openhands: { label: "Open Hands" },
+			"gemini-cli": { label: "Gemini CLI" },
 			junie: { label: "Junie" },
-			augmentcode: {
-				label: "AugmentCode",
-			},
-			kilocode: {
-				label: "Kilo Code",
-			},
+			kilocode: { label: "Kilo Code" },
 			opencode: { label: "OpenCode" },
+			crush: { label: "Crush" },
+			zed: { label: "Zed" },
+			qwen: { label: "Qwen" },
 		} as const;
 
-		const selectedEditors = await autocompleteMultiselect<keyof typeof EDITORS>(
-			{
-				message: "Select AI assistants for Ruler",
-				options: Object.entries(EDITORS).map(([key, v]) => ({
-					value: key as keyof typeof EDITORS,
-					label: v.label,
-				})),
-				required: false,
-			},
-		);
+		const selectedEditors = await autocompleteMultiselect({
+			message: "Select AI assistants for Ruler",
+			options: Object.entries(EDITORS).map(([key, v]) => ({
+				value: key,
+				label: v.label,
+			})),
+			required: false,
+		});
 
 		if (isCancel(selectedEditors)) return exitCancelled("Operation cancelled");
 
