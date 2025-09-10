@@ -21,16 +21,22 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    }{{#if (or (eq serverDeploy "alchemy") (eq webDeploy "alchemy"))}},
+    "types": [
+      "@cloudflare/workers-types"
+    ]{{/if}}
   },
   "include": [
+    {{#if (eq serverDeploy "alchemy")}}
+    "../server/env.d.ts",
+    {{/if}}
+    {{#if (eq serverDeploy "wrangler")}}
+    "../server/worker-configuration.d.ts",
+    {{/if}}
     "./next-env.d.ts",
     "./**/*.ts",
     "./**/*.tsx",
-    "./.next/types/**/*.ts",
-    {{#if (eq runtime "workers")}}
-    "../server/worker-configuration.d.ts"
-    {{/if}}
+    "./.next/types/**/*.ts"
   ],
   "exclude": [
     "./node_modules"
