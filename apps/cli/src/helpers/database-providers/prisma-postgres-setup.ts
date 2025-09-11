@@ -203,32 +203,6 @@ async function addPrismaAccelerateExtension(serverDir: string) {
 			projectDir: serverDir,
 		});
 
-		const prismaIndexPath = path.join(serverDir, "prisma/index.ts");
-		const prismaIndexContent = `
-import { PrismaClient } from "./generated/client";
-import { withAccelerate } from "@prisma/extension-accelerate";
-
-const prisma = new PrismaClient().$extends(withAccelerate());
-
-export default prisma;
-`;
-		await fs.writeFile(prismaIndexPath, prismaIndexContent.trim());
-
-		const dbFilePath = path.join(serverDir, "src/db/index.ts");
-		if (await fs.pathExists(dbFilePath)) {
-			let dbFileContent = await fs.readFile(dbFilePath, "utf8");
-
-			if (!dbFileContent.includes("@prisma/extension-accelerate")) {
-				dbFileContent = `import { withAccelerate } from "@prisma/extension-accelerate";\n${dbFileContent}`;
-
-				dbFileContent = dbFileContent.replace(
-					"export const db = new PrismaClient();",
-					"export const db = new PrismaClient().$extends(withAccelerate());",
-				);
-
-				await fs.writeFile(dbFilePath, dbFileContent);
-			}
-		}
 		return true;
 	} catch (_error) {
 		log.warn(

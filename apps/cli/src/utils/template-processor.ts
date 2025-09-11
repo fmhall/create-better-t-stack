@@ -5,9 +5,7 @@ import handlebars from "handlebars";
 import type { ProjectConfig } from "../types";
 import { formatFileWithBiome } from "./biome-formatter";
 
-const BINARY_EXTENSIONS = new Set([
-	".png", ".ico", ".svg",
-]);
+const BINARY_EXTENSIONS = new Set([".png", ".ico", ".svg"]);
 
 function isBinaryFile(filePath: string): boolean {
 	const ext = path.extname(filePath).toLowerCase();

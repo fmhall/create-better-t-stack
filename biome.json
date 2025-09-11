@@ -20,7 +20,8 @@
 			"!**/schema.json",
 			"!**/_generated",
 			"!**/.smoke",
-			"!**/global.css"
+			"!**/global.css",
+			"!**/package.json"
 		]
 	},
 	"formatter": {
