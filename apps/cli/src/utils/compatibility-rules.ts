@@ -237,11 +237,21 @@ export function validateExamplesCompatibility(
 		);
 	}
 	if (
-		(examplesArr.includes("ai") || examplesArr.includes("monetized ai")) &&
+		examplesArr.includes("ai") &&
 		(frontend ?? []).includes("solid")
 	) {
 		exitWithError(
-			"The 'ai' and 'monetized ai' examples are not compatible with the Solid frontend.",
+			"The 'ai' example is not compatible with the Solid frontend.",
+		);
+	}
+	if (
+		examplesArr.includes("monetized-ai") &&
+		(frontend ?? []).includes("solid") ||
+		(frontend ?? []).includes("nuxt") ||
+		(frontend ?? []).includes("svelte")
+	) {
+		exitWithError(
+			"The 'monetized-ai' example is not compatible with the Solid, Nuxt, or Svelte frontend.",
 		);
 	}
 }

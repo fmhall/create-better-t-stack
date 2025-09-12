@@ -17,7 +17,7 @@ import { createContext } from "./lib/context";
 {{/if}}
 import cors from "cors";
 import express from "express";
-{{#if (or (includes examples "ai") (includes examples "monetized ai"))}}
+{{#if (includes examples "ai")}}
 import { streamText, type UIMessage, convertToModelMessages } from "ai";
 import { google } from "@ai-sdk/google";
 {{/if}}
@@ -101,7 +101,7 @@ app.use(async (req, res, next) => {
 
 app.use(express.json());
 
-{{#if (or (includes examples "ai") (includes examples "monetized ai"))}}
+{{#if (includes examples "ai")}}
 app.post("/ai", async (req, res) => {
   const { messages = [] } = (req.body || {}) as { messages: UIMessage[] };
   const result = streamText({
