@@ -555,7 +555,7 @@ export const TECH_OPTIONS: Record<
 		{
 			id: "monetized-ai",
 			name: "Monetized AI Example",
-			description: "Monetized AI integration example using AI SDK",
+			description: "Monetized AI integration example using the Echo SDK",
 			icon: "",
 			color: "from-blue-500 to-blue-700",
 			default: false,
