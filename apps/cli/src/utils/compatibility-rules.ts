@@ -165,6 +165,17 @@ export function isExampleAIAllowed(
 	return true;
 }
 
+export function isExampleMonetizedAIAllowed(
+	_backend?: ProjectConfig["backend"],
+	frontends: Frontend[] = [],
+) {
+	const includesSolid = frontends.includes("solid");
+	const includesNuxt = frontends.includes("nuxt");
+	const includesSvelte = frontends.includes("svelte");
+	if (includesSolid || includesNuxt || includesSvelte) return false;
+	return true;
+}
+
 export function validateWebDeployRequiresWebFrontend(
 	webDeploy: WebDeploy | undefined,
 	hasWebFrontendFlag: boolean,
@@ -225,9 +236,22 @@ export function validateExamplesCompatibility(
 			"The 'todo' example requires a database if a backend (other than Convex) is present. Cannot use --examples todo when database is 'none' and a backend is selected.",
 		);
 	}
-	if (examplesArr.includes("ai") && (frontend ?? []).includes("solid")) {
+	if (
+		examplesArr.includes("ai") &&
+		(frontend ?? []).includes("solid")
+	) {
 		exitWithError(
 			"The 'ai' example is not compatible with the Solid frontend.",
+		);
+	}
+	if (
+		examplesArr.includes("monetized-ai") &&
+		(frontend ?? []).includes("solid") ||
+		(frontend ?? []).includes("nuxt") ||
+		(frontend ?? []).includes("svelte")
+	) {
+		exitWithError(
+			"The 'monetized-ai' example is not compatible with the Solid, Nuxt, or Svelte frontend.",
 		);
 	}
 }

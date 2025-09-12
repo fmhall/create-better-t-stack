@@ -22,7 +22,7 @@ export default function Header() {
     {{#if (includes examples "todo")}}
     { to: "/todos", label: "Todos" },
     {{/if}}
-    {{#if (includes examples "ai")}}
+    {{#if (or (includes examples "ai") (includes examples "monetized ai"))}}
     { to: "/ai", label: "AI Chat" },
     {{/if}}
   ] as const;

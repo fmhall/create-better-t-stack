@@ -65,4 +65,37 @@ export async function setupExamples(config: ProjectConfig) {
 			});
 		}
 	}
+
+	if (examples.includes("monetized-ai")) {
+		const webClientDir = path.join(projectDir, "apps/web");
+		const webClientDirExists = await fs.pathExists(webClientDir);
+
+		const hasNuxt = frontend.includes("nuxt");
+		const hasSvelte = frontend.includes("svelte");
+		const hasReactWeb =
+			frontend.includes("react-router") ||
+			frontend.includes("tanstack-router") ||
+			frontend.includes("next") ||
+			frontend.includes("tanstack-start");
+		const hasNext = frontend.includes("next");
+
+		if (webClientDirExists) {
+			const dependencies: AvailableDependencies[] = ["ai"];
+			if (hasNuxt) {
+				dependencies.push("@ai-sdk/vue");
+			} else if (hasSvelte) {
+				dependencies.push("@ai-sdk/svelte");
+			} else if (hasReactWeb) {
+				dependencies.push("@ai-sdk/react", "streamdown");
+				dependencies.push("@merit-systems/echo-react-sdk");
+			}
+			if (hasNext) {
+				dependencies.push("@merit-systems/echo-next-sdk");
+			}
+			await addPackageDependency({
+				dependencies,
+				projectDir: webClientDir,
+			});
+		}
+	}
 }

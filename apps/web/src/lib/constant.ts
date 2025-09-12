@@ -552,6 +552,14 @@ export const TECH_OPTIONS: Record<
 			color: "from-purple-500 to-purple-700",
 			default: false,
 		},
+		{
+			id: "monetized-ai",
+			name: "Monetized AI Example",
+			description: "Monetized AI integration example using AI SDK",
+			icon: "",
+			color: "from-blue-500 to-blue-700",
+			default: false,
+		},
 	],
 	git: [
 		{

@@ -54,7 +54,7 @@ export const AddonsSchema = z
 export type Addons = z.infer<typeof AddonsSchema>;
 
 export const ExamplesSchema = z
-	.enum(["todo", "ai", "none"])
+	.enum(["todo", "ai", "monetized-ai", "none"])
 	.describe("Example templates to include");
 export type Examples = z.infer<typeof ExamplesSchema>;
 
