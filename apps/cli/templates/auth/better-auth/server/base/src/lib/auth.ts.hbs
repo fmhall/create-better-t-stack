@@ -91,7 +91,12 @@ export const auth = betterAuth({
     {{#if (eq database "mysql")}}provider: "mysql",{{/if}}
     schema: schema,
   }),
-  trustedOrigins: [env.CORS_ORIGIN],
+  trustedOrigins: [
+    env.CORS_ORIGIN,
+    {{#if (or (includes frontend "native-nativewind") (includes frontend "native-unistyles"))}}
+    "mybettertapp://", "exp://"
+    {{/if}}
+  ],
   emailAndPassword: {
     enabled: true,
   },
