@@ -2,7 +2,7 @@ import type { TechCategory } from "./types";
 
 export const ICON_BASE_URL = "https://r2.better-t-stack.dev/icons";
 
-export const TECH_OPTIONS: Record<
+export const  TECH_OPTIONS: Record<
 	TechCategory,
 	{
 		id: string;
@@ -550,6 +550,14 @@ export const TECH_OPTIONS: Record<
 			description: "AI integration example using AI SDK",
 			icon: "",
 			color: "from-purple-500 to-purple-700",
+			default: false,
+		},
+		{
+			id: "monetized-ai",
+			name: "Monetized AI Example",
+			description: "Monetized AI integration example using AI SDK",
+			icon: "",
+			color: "from-blue-500 to-blue-700",
 			default: false,
 		},
 	],

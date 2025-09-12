@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-{{#if (includes examples "ai")}}
+{{#if (or (includes examples "ai") (includes examples "monetized ai"))}}
 @source "../node_modules/streamdown/dist/index.js";
 {{/if}}
 

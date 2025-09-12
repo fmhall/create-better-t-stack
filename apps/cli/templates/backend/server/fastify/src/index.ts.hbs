@@ -22,7 +22,7 @@ import { createContext } from "./lib/context";
 {{/if}}
 {{/if}}
 
-{{#if (includes examples "ai")}}
+{{#if (or (includes examples "ai") (includes examples "monetized ai"))}}
 import { streamText, type UIMessage, convertToModelMessages } from "ai";
 import { google } from "@ai-sdk/google";
 {{/if}}
@@ -152,7 +152,7 @@ fastify.register(fastifyTRPCPlugin, {
 });
 {{/if}}
 
-{{#if (includes examples "ai")}}
+{{#if (or (includes examples "ai") (includes examples "monetized ai"))}}
 interface AiRequestBody {
   id?: string;
   messages: UIMessage[];
