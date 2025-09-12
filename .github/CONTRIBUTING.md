@@ -47,15 +47,47 @@ This repository is organized as a monorepo containing:
 
 3. **Start development server**
    ```bash
-   bun dev:cli
+   bun dev
    ```
-   This runs the CLI in watch mode, automatically rebuilding on changes.
+   This runs tsdown build in watch mode, automatically rebuilding on changes.
+
+4. **Test the CLI**
+   Now go to anywhere else in your system (maybe like a test folder) and run:
+   ```bash
+   create-better-t-stack
+   ```
+   This will run the locally installed CLI.
 
 ### Web Development
 
-1. **Start the documentation website**
+1. **Install dependencies**
    ```bash
-   bun dev:web
+   # from repo root
+   bun i
+   ```
+
+2. **Setup backend**
+   ```bash
+   cd packages/backend
+   bun dev:setup  # you can choose local development too in prompts
+   ```
+
+3. **Configure environment**
+   Copy the Convex URL from `packages/backend/.env.local` to `apps/web/.env`:
+   ```
+   NEXT_PUBLIC_CONVEX_URL=http://127.0.0.1:3210/
+   ```
+
+4. **Set GitHub tokens**
+   Now run `bun dev` in the root. It will complain about GitHub token, so run this in `packages/backend`:
+   ```bash
+   npx convex env set GITHUB_ACCESS_TOKEN=xxxxx
+   npx convex env set GITHUB_WEBHOOK_SECRET=xxxxx
+   ```
+
+5. **Start the documentation website**
+   ```bash
+   bun dev
    ```
    This starts the Next.js development server for the documentation site.
 
@@ -109,11 +141,8 @@ This repository is organized as a monorepo containing:
 ```bash
 # For CLI changes
 cd apps/cli
-bun dev:cli
+bun dev
 bun run test
-
-# For web changes
-bun dev:web
 
 # Format files
 bun run format
