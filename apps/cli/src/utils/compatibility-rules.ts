@@ -236,7 +236,10 @@ export function validateExamplesCompatibility(
 			"The 'todo' example requires a database if a backend (other than Convex) is present. Cannot use --examples todo when database is 'none' and a backend is selected.",
 		);
 	}
-	if ((examplesArr.includes("ai") || examplesArr.includes("monetized ai")) && (frontend ?? []).includes("solid")) {
+	if (
+		(examplesArr.includes("ai") || examplesArr.includes("monetized ai")) &&
+		(frontend ?? []).includes("solid")
+	) {
 		exitWithError(
 			"The 'ai' and 'monetized ai' examples are not compatible with the Solid frontend.",
 		);

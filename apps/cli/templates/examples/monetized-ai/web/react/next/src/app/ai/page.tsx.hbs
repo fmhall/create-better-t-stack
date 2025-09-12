@@ -1,84 +1,35 @@
-"use client";
+import { getUser, isSignedIn } from '@/echo';
+import { Balance } from '@/components/echo/balance';
+import SignIn from '@/components/echo/signin';
+import SignOut from '@/components/echo/signout';
+import TabsContainer from '@/components/echo/tabs-container';
 
-import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
-import { Send } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { Response } from "@/components/response";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+export default async function AIPage() {
+  const _isSignedIn = await isSignedIn();
+  const user = await getUser();
 
-export default function AIPage() {
-  const [input, setInput] = useState("");
-  const { messages, sendMessage } = useChat({
-    transport: new DefaultChatTransport({
-      api: `${process.env.NEXT_PUBLIC_SERVER_URL}/ai`,
-    }),
-  });
-
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text) return;
-    sendMessage({ text });
-    setInput("");
-  };
+  if (!_isSignedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <SignIn />
+      </div>
+    );
+  }
 
   return (
-    <div className="grid grid-rows-[1fr_auto] overflow-hidden w-full mx-auto p-4">
-      <div className="overflow-y-auto space-y-4 pb-4">
-        {messages.length === 0 ? (
-          <div className="text-center text-muted-foreground mt-8">
-            Ask me anything to get started!
-          </div>
-        ) : (
-          messages.map((message) => (
-            <div
-              key={message.id}
-              className={`p-3 rounded-lg ${
-                message.role === "user"
-                  ? "bg-primary/10 ml-8"
-                  : "bg-secondary/20 mr-8"
-              }`}
-            >
-              <p className="text-sm font-semibold mb-1">
-                {message.role === "user" ? "You" : "AI Assistant"}
-              </p>
-              {message.parts?.map((part, index) => {
-                if (part.type === "text") {
-                  return <Response key={index}>{part.text}</Response>;
-                }
-                return null;
-              })}
-            </div>
-          ))
-        )}
-        <div ref={messagesEndRef} />
+    <div className="flex flex-col items-center min-h-screen p-4">
+      <div className="flex justify-between items-center w-full max-w-4xl mb-6">
+        <h1 className="text-2xl font-bold">Next.js SDK Example</h1>
+        <SignOut />
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="w-full flex items-center space-x-2 pt-2 border-t"
-      >
-        <Input
-          name="prompt"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="flex-1"
-          autoComplete="off"
-          autoFocus
-        />
-        <Button type="submit" size="icon">
-          <Send size={18} />
-        </Button>
-      </form>
+      <p className="text-lg mb-6">User: {user?.email}</p>
+      <p className="text-lg mb-6">id: {user?.id}</p>
+      <p className="text-lg mb-6">Name: {user?.name}</p>
+      <Balance />
+      <div className="w-full max-w-4xl">
+        <TabsContainer />
+      </div>
     </div>
   );
 }

@@ -66,14 +66,9 @@ export async function setupExamples(config: ProjectConfig) {
 		}
 	}
 
-	if (examples.includes("monetized ai")) {
+	if (examples.includes("monetized-ai")) {
 		const webClientDir = path.join(projectDir, "apps/web");
-		const nativeClientDir = path.join(projectDir, "apps/native");
-		const serverDir = path.join(projectDir, "apps/server");
-
 		const webClientDirExists = await fs.pathExists(webClientDir);
-		const nativeClientDirExists = await fs.pathExists(nativeClientDir);
-		const serverDirExists = await fs.pathExists(serverDir);
 
 		const hasNuxt = frontend.includes("nuxt");
 		const hasSvelte = frontend.includes("svelte");
@@ -82,9 +77,7 @@ export async function setupExamples(config: ProjectConfig) {
 			frontend.includes("tanstack-router") ||
 			frontend.includes("next") ||
 			frontend.includes("tanstack-start");
-		const hasReactNative =
-			frontend.includes("native-nativewind") ||
-			frontend.includes("native-unistyles");
+		const hasNext = frontend.includes("next");
 
 		if (webClientDirExists) {
 			const dependencies: AvailableDependencies[] = ["ai"];
@@ -94,24 +87,14 @@ export async function setupExamples(config: ProjectConfig) {
 				dependencies.push("@ai-sdk/svelte");
 			} else if (hasReactWeb) {
 				dependencies.push("@ai-sdk/react", "streamdown");
+				dependencies.push("@merit-systems/echo-react-sdk");
+			}
+			if (hasNext) {
+				dependencies.push("@merit-systems/echo-next-sdk");
 			}
 			await addPackageDependency({
 				dependencies,
 				projectDir: webClientDir,
-			});
-		}
-
-		if (nativeClientDirExists && hasReactNative) {
-			await addPackageDependency({
-				dependencies: ["ai", "@ai-sdk/react"],
-				projectDir: nativeClientDir,
-			});
-		}
-
-		if (serverDirExists && backend !== "none") {
-			await addPackageDependency({
-				dependencies: ["ai", "@ai-sdk/google"],
-				projectDir: serverDir,
 			});
 		}
 	}

@@ -114,6 +114,9 @@ export const dependencyVersionMap = {
 	"@ai-sdk/react": "^2.0.39",
 	streamdown: "^1.2.0",
 
+	"@merit-systems/echo-next-sdk": "^0.0.9",
+	"@merit-systems/echo-react-sdk": "^1.0.20",
+
 	"@orpc/server": "^1.8.6",
 	"@orpc/client": "^1.8.6",
 	"@orpc/openapi": "^1.8.6",

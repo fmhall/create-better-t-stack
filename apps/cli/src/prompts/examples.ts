@@ -19,20 +19,20 @@ export async function getExamplesChoice(
 
 	if (api === "none") {
 		if (backend === "convex") {
-			return ["todo"];
+			return ["todo", "monetized-ai"];
 		}
-		return [];
+		return ["monetized-ai"];
 	}
 
 	if (backend === "convex") {
-		return ["todo"];
+		return ["todo", "monetized-ai"];
 	}
 
 	if (backend === "none") {
-		return [];
+		return ["monetized-ai"];
 	}
 
-	if (database === "none") return [];
+	if (database === "none") return ["monetized-ai"];
 
 	let response: Examples[] | symbol = [];
 	const options: { value: Examples; label: string; hint: string }[] = [];
@@ -55,7 +55,7 @@ export async function getExamplesChoice(
 
 	if (isExampleMonetizedAIAllowed(backend, frontends ?? [])) {
 		options.push({
-			value: "monetized ai" as const,
+			value: "monetized-ai" as const,
 			label: "Monetized AI Chat",
 			hint: "AI chat with credit system and monetization features",
 		});

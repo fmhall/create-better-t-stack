@@ -684,7 +684,7 @@ export async function setupExamplesTemplate(
 		) {
 			const exampleServerSrc = path.join(exampleBaseDir, "server");
 
-			if ((example === "ai" || example === "monetized ai") && context.backend === "next") {
+			if (example === "ai" && context.backend === "next") {
 				const aiNextServerSrc = path.join(exampleServerSrc, "next");
 				if (await fs.pathExists(aiNextServerSrc)) {
 					await processAndCopyFiles(
@@ -734,7 +734,7 @@ export async function setupExamplesTemplate(
 			if (hasReactWeb) {
 				const exampleWebSrc = path.join(exampleBaseDir, "web/react");
 				if (await fs.pathExists(exampleWebSrc)) {
-					if (example === "ai" || example === "monetized ai") {
+					if (example === "ai") {
 						const exampleWebBaseSrc = path.join(exampleWebSrc, "base");
 						if (await fs.pathExists(exampleWebBaseSrc)) {
 							await processAndCopyFiles(
