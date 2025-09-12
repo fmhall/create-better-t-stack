@@ -34,15 +34,34 @@ bun install
 cd apps/cli
 # optional global link for testing anywhere
 bun link
-# run in watch mode
-bun dev:cli
+# run in watch mode (runs tsdown build in watch mode)
+bun dev
 ```
+
+Now go to anywhere else in your system (maybe like a test folder) and run:
+```bash
+create-better-t-stack
+```
+This will run the locally installed CLI.
 
 ## Develop the Docs
 
 ```bash
 # from repo root
-bun dev:web
+bun i
+cd packages/backend
+bun dev:setup  # you can choose local development too in prompts
+```
+
+Copy the Convex URL from `packages/backend/.env.local` to `apps/web/.env`:
+```
+NEXT_PUBLIC_CONVEX_URL=http://127.0.0.1:3210/
+```
+
+Now run `bun dev` in the root. It will complain about GitHub token, so run this in `packages/backend`:
+```bash
+npx convex env set GITHUB_ACCESS_TOKEN=xxxxx
+npx convex env set GITHUB_WEBHOOK_SECRET=xxxxx
 ```
 
 ## Contribution Flow
@@ -56,11 +75,11 @@ bun dev:web
 
 ```bash
 # CLI
-cd apps/cli && bun dev:cli
+cd apps/cli && bun dev
 cd apps/cli && bun run test
 
 # Web
-bun dev:web
+bun dev
 
 # Format
 bun run format
